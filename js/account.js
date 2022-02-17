@@ -35,7 +35,6 @@ document.getElementById('calculate-btn').addEventListener('click', function(){
             balance.innerText = '';
         }  
     } 
-    
 });
 
 // get food, rent and cloths expenses values
@@ -48,11 +47,43 @@ function updateExpenseAmount(inputId){
     else{
         console.log('please! privide a valid number');  
     }
-    // amountField.value = getAmount;
     amountField.value = '';
 }
 
+ // save button event
+ document.getElementById('save-btn').addEventListener('click', function(){
 
+    const incomeAmount = parseFloat(updateExpenseAmount('income-amount'));
+    const percentageField = document.getElementById('percentage-value');
+    const percentageValue = parseFloat(percentageField.value);
+    percentageField.value = percentageValue;
+
+    const totalPercentage = (incomeAmount * percentageValue) / 100 ;
+    // percentageField.value = totalPercentage;
+
+    const savingField = document.getElementById('saving-amount');
+    const savingValue = parseFloat(savingField.innerText);
+    savingField.innerText = savingValue;
+    // total percentage 
+    const totalSavingAmount = parseFloat(savingValue + totalPercentage);
+    savingField.innerText = parseFloat(totalSavingAmount);
+    // remaining balance after saving
+    const balanceAmount = totalBalance('balance-amount');
+    const totalRemainBalance = balanceAmount - totalSavingAmount;
+    const balanceRemain = document.getElementById('remaining-balance');
+    const totalRemainValue = parseFloat(balanceRemain);
+    balanceRemain.innerText = totalRemainValue;
+    balanceRemain.innerText = totalRemainBalance;
+
+ })
+    // funtion for balance and remaining balance purpose
+ function totalBalance(inputId){
+     const balance = document.getElementById(inputId);
+     const balanceAmount = parseFloat(balance.innerText);
+     balance.innerText = balanceAmount;
+
+     return balanceAmount; 
+ }
 
 
 
